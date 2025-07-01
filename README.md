@@ -23,13 +23,13 @@
 | Компонент                                     | Количество | Цена/бр. (BGN) | Обща цена (BGN)  | Линк                                                |
 |-----------------------------------------------|------------|----------------|------------------|-----------------------------------------------------|
 | 9V батерия                                    | 1          | 3.00           | 3.00             | -                                                   |
-| IR светодиод (предавател)                     | 2          | 0.60           | 1.20             | https://elimex.bg/product/21766-led-5mm-clear-uv-395-400nm |
-| Фототранзистор TCUT1300X01 (приемник)         | 2          | 4.60           | 9.20             | https://elimex.bg/product/94306-fototranzistor-tcut1300x01 |
+| IR светодиод LTE-302 (предавател)             | 2          | 0.90           | 1.80             | https://elimex.bg/product/21766-led-5mm-clear-uv-395-400nm |
+| Фототранзистор LTR-301  (приемник)            | 2          | 0.90           | 1.80             | https://elimex.bg/product/94306-fototranzistor-tcut1300x01 |
 | Батериен държач (battery holder)              | 2          | 2.00           | 4.00             | https://elimex.bg/product/94047-battery-holder-smt-thm-18650 |
 | Arduino UNO R3 (ATmega328P SMD)               | 1          | 12.00          | 12.00            | https://elimex.bg/product/71201-kit-k2014-razvoyna-platka-s-atmega328p-smd-usb-b |
 | LED индикатор – 7 сегмента, общ катод (0.56") | 2          | 1.00           | 2.00             | https://elimex.bg/product/80818-led-indikator-4082-obsht-katod-0-56-inch |
 | Кабели, резистори, бутони и др.               | -          | -              | 5.00             |                                                     |
-| **Обща стойност:**                            |            |                | **36.40 BGN**    |                                                     |
+| **Обща стойност:**                            |            |                | **30 BGN**       |                                                     |
 
 ---
 
