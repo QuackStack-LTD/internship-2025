@@ -34,7 +34,7 @@
 ---
 
 ## Хардуерна схема
-![Foosball Schematic TinkerCad](https://imgur.com/a/ID3m4Ga.jpg)
+![Foosball Schematic TinkerCad](https://imgur.com/a/ID3m4Ga)
 
 - IR LED и фототранзистор са позиционирани от двете страни на „вратата“, създавайки невидим лъч.
 - Прекъсване на лъча от топчето задейства брояча.
