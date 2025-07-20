@@ -51,7 +51,7 @@
 - Управление на рестарт бутона
 - Брояч с лимит
 
-![LED Datasheet](https://i.imgur.com/tjGAN19.png)
+![LED Datasheet](https://imgur.com/a/led-7-segment-display-datasheet-tjGAN19.png)
 
 ---
 
