@@ -1,54 +1,70 @@
-// Сегментите: A, B, C, D, E, F, G
-int segmentPins[] = {3, 4, 5, 6, 7, 8, 9};
+// Свързване според твоята конфигурация:
+// 1 2 (3 e GND) 4 5 6 7 (8 e GND) 9 10 → D2 D3 D4 D5 D6 D7 D8 D9
 
-// Бутон на пин 2
-const int buttonPin = 2;
-
-int score = 0;
-bool lastButtonState = HIGH;  // с INPUT_PULLUP, неактивно е HIGH
-
-// Цифри за общ катоден 7-сегментен дисплей
-const byte digits[10][7] = {
-  {1,1,1,1,1,1,0}, // 0
-  {0,1,1,0,0,0,0}, // 1
-  {1,1,0,1,1,0,1}, // 2
-  {1,1,1,1,0,0,1}, // 3
-  {0,1,1,0,0,1,1}, // 4
-  {1,0,1,1,0,1,1}, // 5
-  {1,0,1,1,1,1,1}, // 6
-  {1,1,1,0,0,0,0}, // 7
-  {1,1,1,1,1,1,1}, // 8
-  {1,1,1,1,0,1,1}  // 9
+const int segmentPins[8] = {
+  2, // gore nai lqvo D2
+  3, // gore vtoro nai lqvo D3
+  4, // gore vtoro nai dqsno D4
+  5, // gore nai dqsno D5
+  6, // dolu nai dqsno D6
+  7, // dolu vtoro nai dqsno D7
+  8, // dolu vtoro nai lqvo D8
+  9  // dolu nai lqvo D9
 };
 
+const byte digits[10][8] = {
+  {0,1,1,1,1,1,1,1}, // 0
+  {0,0,0,1,0,1,0,0}, // 1
+  {1,0,1,1,1,0,1,1}, // 2
+  {1,0,1,1,1,1,1,0}, // 3
+  {1,1,0,1,1,1,0,0}, // 4
+  {1,1,1,0,1,1,1,0}, // 5
+  {1,1,1,0,1,1,1,1}, // 6
+  {0,0,1,1,1,1,0,0}, // 7
+  {1,1,1,1,1,1,1,1}, // 8
+  {1,1,1,1,1,1,1,0}  // 9
+};
+
+const int sensorPin = A0;
+const int triggerThreshold = 800;   // Над тази стойност се смята за прекъснат лъч
+const int resetThreshold = 750;     // Под тази стойност се разрешава следващ гол
+const int cooldown = 6000;          // минимално време между голове
+
+int counter = 0;
+bool beamBroken = false;
+unsigned long lastTriggerTime = 0;
+
 void setup() {
-  // Пинове за 7-сегментен дисплей
-  for (int i = 0; i < 7; i++) {
+  for (int i = 0; i < 8; i++) {
     pinMode(segmentPins[i], OUTPUT);
   }
-
-  // Бутон
-  pinMode(buttonPin, INPUT_PULLUP); // без външен резистор
-  displayDigit(score); // започваме от 0
+  Serial.begin(9600);
 }
 
 void loop() {
-  bool currentState = digitalRead(buttonPin);
+  int sensorValue = analogRead(sensorPin);
+  Serial.println(sensorValue);
 
-  // Засичане на преход от HIGH → LOW (бутон натиснат)
-  if (lastButtonState == HIGH && currentState == LOW) {
-    score++;
-    if (score > 9) score = 0;
-    displayDigit(score);
-    delay(250); // debounce
+  unsigned long currentTime = millis();
+
+  if (sensorValue > triggerThreshold && !beamBroken && 
+      (currentTime - lastTriggerTime > cooldown)) {
+    counter++;
+    if (counter > 9) counter = 0;
+    beamBroken = true;
+    lastTriggerTime = currentTime;
   }
 
-  lastButtonState = currentState;
+  // Ако обектът вече не прекъсва лъча → разреши ново броене
+  if (sensorValue < resetThreshold) {
+    beamBroken = false;
+  }
+
+  displayDigit(counter);
 }
 
-// Функция за показване на цифра
-void displayDigit(int number) {
-  for (int i = 0; i < 7; i++) {
-    digitalWrite(segmentPins[i], digits[number][i]);
+void displayDigit(int num) {
+  for (int i = 0; i < 8; i++) {
+    digitalWrite(segmentPins[i], digits[num][i]);
   }
 }
